@@ -1,0 +1,19 @@
+{
+  "name": "password-checker",
+  "version": "1.0.0",
+  "description": "Password checker express app",
+  "main": "server/server.js",
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:SystemR/password-checker.git"
+  },
+  "author": "Randy Wenas",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.3"
+  }
+}

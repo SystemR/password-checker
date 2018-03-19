@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <!-- Basic Page Needs
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta charset="utf-8">
+  <title>Password Tester</title>
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Mobile Specific Metas
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- FONT
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <link href='//fonts.googleapis.com/css?family=Raleway:400,300,600' rel='stylesheet' type='text/css'>
+  <link href='//cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css' rel='stylesheet' type='text/css'>
+
+  <!-- Scripts
+  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <style>
+    ul {
+      list-style-type: square;
+    }
+
+    .loader {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 99999px;
+      z-index: 100000;
+      background: rgba(255, 255, 255, 0.6);
+      display: none;
+    }
+
+    .loader.active--enter {
+      display: block;
+    }
+
+    .loader.active--on .spinner-container {
+      opacity: 1;
+      transform: scale3d(1, 1, 1);
+    }
+
+    .spinner-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      margin-left: -50px;
+      margin-top: -50px;
+      opacity: 0;
+      transition: all 0.1s ease-in-out;
+      transform: scale3d(0, 0, 0);
+    }
+
+    .spinner {
+      width: 100px;
+      height: 100px;
+      border-radius: 100%;
+      box-shadow: 100px 100px #553899, -100px 100px #fcb215, -100px -100px #553899,
+      100px -100px #fcb215;
+      -o-box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+      -100px -100px #553899, 100px -100px #fcb215;
+      -ms-box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+      -100px -100px #553899, 100px -100px #fcb215;
+      -webkit-box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+      -100px -100px #553899, 100px -100px #fcb215;
+      -moz-box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+      -100px -100px #553899, 100px -100px #fcb215;
+      animation: cssload-spin ease-in-out infinite 2s;
+      -o-animation: cssload-spin ease-in-out infinite 2s;
+      -ms-animation: cssload-spin ease-in-out infinite 2s;
+      -webkit-animation: cssload-spin ease-in-out infinite 2s;
+      -moz-animation: cssload-spin ease-in-out infinite 2s;
+    }
+
+    @keyframes cssload-spin {
+      0%,
+      100% {
+        box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899, 100px -100px #fcb215;
+      }
+      25% {
+        box-shadow: -100px 100px #fcb215, -100px -100px #553899,
+        100px -100px #fcb215, 100px 100px #553899;
+      }
+      50% {
+        box-shadow: -100px -100px #553899, 100px -100px #fcb215,
+        100px 100px #553899, -100px 100px #fcb215;
+      }
+      75% {
+        box-shadow: 100px -100px #fcb215, 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899;
+      }
+    }
+
+    @-o-keyframes cssload-spin {
+      0%,
+      100% {
+        box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899, 100px -100px #fcb215;
+      }
+      25% {
+        box-shadow: -100px 100px #fcb215, -100px -100px #553899,
+        100px -100px #fcb215, 100px 100px #553899;
+      }
+      50% {
+        box-shadow: -100px -100px #553899, 100px -100px #fcb215,
+        100px 100px #553899, -100px 100px #fcb215;
+      }
+      75% {
+        box-shadow: 100px -100px #fcb215, 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899;
+      }
+    }
+
+    @-ms-keyframes cssload-spin {
+      0%,
+      100% {
+        box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899, 100px -100px #fcb215;
+      }
+      25% {
+        box-shadow: -100px 100px #fcb215, -100px -100px #553899,
+        100px -100px #fcb215, 100px 100px #553899;
+      }
+      50% {
+        box-shadow: -100px -100px #553899, 100px -100px #fcb215,
+        100px 100px #553899, -100px 100px #fcb215;
+      }
+      75% {
+        box-shadow: 100px -100px #fcb215, 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899;
+      }
+    }
+
+    @-webkit-keyframes cssload-spin {
+      0%,
+      100% {
+        box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899, 100px -100px #fcb215;
+      }
+      25% {
+        box-shadow: -100px 100px #fcb215, -100px -100px #553899,
+        100px -100px #fcb215, 100px 100px #553899;
+      }
+      50% {
+        box-shadow: -100px -100px #553899, 100px -100px #fcb215,
+        100px 100px #553899, -100px 100px #fcb215;
+      }
+      75% {
+        box-shadow: 100px -100px #fcb215, 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899;
+      }
+    }
+
+    @-moz-keyframes cssload-spin {
+      0%,
+      100% {
+        box-shadow: 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899, 100px -100px #fcb215;
+      }
+      25% {
+        box-shadow: -100px 100px #fcb215, -100px -100px #553899,
+        100px -100px #fcb215, 100px 100px #553899;
+      }
+      50% {
+        box-shadow: -100px -100px #553899, 100px -100px #fcb215,
+        100px 100px #553899, -100px 100px #fcb215;
+      }
+      75% {
+        box-shadow: 100px -100px #fcb215, 100px 100px #553899, -100px 100px #fcb215,
+        -100px -100px #553899;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id='loader' class='loader'>
+    <div class='spinner-container'>
+      <div class='spinner'></div>
+    </div>
+  </div>
+  <div class="section hero" style='margin-top: 100px;'>
+    <div class="container">
+      <div class="row">
+        <label for="password">Your password</label>
+        <input class="u-full-width" autofocus type="text" placeholder="password" id="password" autocomplete="off" />
+      </div>
+    </div>
+  </div>
+  <div class="section values">
+    <div class="container">
+      <div class="row">
+        <ul id='output'></ul>
+        <p id='more' style='display: none;'>
+          And
+          <span id='count'></span> more!
+        </p>
+      </div>
+    </div>
+  </div>
+  <script type='text/javascript'>
+    var renderChunks = function ($output, start, end, len, data) {
+      setTimeout(() => {
+        var html = '';
+        for (var i = start; i < end && i < len; i++) {
+          html += '<li>' + data + '</li>';
+        }
+        $output.append(html);
+      });
+    };
+    $.ajaxSetup({
+      timeout: 0
+    });
+    $(function () {
+      var $output = $("#output");
+      var $loader = $("#loader");
+
+      var $more = $("#more");
+      var $count = $("#count");
+      $("#password").on('keypress', function (e) {
+        var $this = $(this);
+        var val = $this.val();
+        if (e.keyCode === 13 && val && val.length > 2) {
+          $this.blur();
+          $loader.addClass('active--enter');
+          $loader.addClass('active--on');
+          $.getJSON('/api?q=' + val).then(function (data) {
+            $loader.removeClass('active--on');
+            var count = data.count;
+            var results = data.data;
+            var len = results.length;
+            var html = '';
+
+            if (!count) {
+              $output.html('<li>Not found</li>');
+            } else {
+              for (var i = 0; i < len; i++) {
+                html += '<li>' + results[i] + '</li>';
+              }
+              $output.html(html);
+              var remaining = count - len;
+              if (remaining > 0) {
+                $count[0].innerHTML = remaining;
+                $more.show();
+              } else {
+                $more.hide();
+              }
+            }
+            setTimeout(function () {
+              $loader.removeClass('active--enter');
+            }, 300);
+          });
+        }
+      });
+    });
+  </script>
+</body>
+
+</html>
